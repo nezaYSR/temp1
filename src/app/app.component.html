@@ -1,4 +1,23 @@
 <!-- main app container -->
 <div class="container">
-  <router-outlet></router-outlet>
+  <div class="row">
+    <div class="col">
+      <h2>
+        Header
+      </h2>
+    </div>
+  </div>
+  <div class="row" *ngIf="currentUser">
+    <div class="col">
+      <h2>
+        Logged In
+      </h2>
+      <a (click)="logout()">Logout</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
