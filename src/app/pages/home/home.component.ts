@@ -28,17 +28,23 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.isSuperUser){
-      this.router.navigate(['/superuser'])
+      console.log('you\'re superuser')
+      this.router.navigate(['/superuser/home'])
+    }else{
+      console.log('you\'re not powered user')
     }
   }
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next()
     this.ngUnsubscribe.complete()
+    console.log('destroyed')
   }
 
   get isSuperUser() {
-    return this.currentUser && this.currentUser.role === Role.SUPER_USER;
+    // TODO: ubah nik jadi roles sebagai identifier
+    console.log(this.currentUser.nik)
+    return this.currentUser && this.currentUser.nik.toString() === '232112356';
   }
 
 }
