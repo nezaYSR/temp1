@@ -1,1 +1,14 @@
 <p>home works!</p>
+<div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+<div *ngIf="userDetail; else noUserDetail">
+  <p>
+    {{ userDetail | json }}
+  </p>
+</div>
+<ng-template #noUserDetail>
+  <div>
+    <p>
+      Fetching user detail failed
+    </p>
+  </div>
+</ng-template>
