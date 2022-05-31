@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
-import { WithCredentialsInterceptorInterceptor } from './with-credentials-interceptor.interceptor';
+import { WithCredentialsInterceptor } from './with-credentials-interceptor';
 
 describe('WithCredentialsInterceptorInterceptor', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
-      WithCredentialsInterceptorInterceptor
+      WithCredentialsInterceptor
       ]
   }));
 
   it('should be created', () => {
-    const interceptor: WithCredentialsInterceptorInterceptor = TestBed.inject(WithCredentialsInterceptorInterceptor);
+    const interceptor: WithCredentialsInterceptor = TestBed.inject(WithCredentialsInterceptor);
     expect(interceptor).toBeTruthy();
   });
 });
