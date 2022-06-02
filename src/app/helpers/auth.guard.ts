@@ -1,15 +1,19 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
-import {AuthenticationService} from "../shared/services";
+import {AuthenticationService, UserService} from "../shared/services";
+import {first, map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
+  currentUserRole: null
+
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private userService: UserService
   ) {
   }
 
@@ -19,11 +23,34 @@ export class AuthGuard implements CanActivate {
     const currentUser = this.authenticationService.currentUserValue
 
     if (currentUser) {
-      // TODO: ubah nik menjadi roles sebagai identifier
-      if (route.data['roles'] && route.data['roles'].indexOf(currentUser.nik) === -1) {
+
+      this.userService.getUserDetail()
+        .pipe(first())
+        .pipe(
+          map((resp) => {
+            console.log('pipe')
+            if (resp && resp.success === true) {
+              this.currentUserRole = resp.userERMSrole.ermsRole
+            }
+            return resp;
+          })
+        )
+        .subscribe({
+          next: () => {
+            console.log('subs')
+          },
+          error: () => {
+            this.router.navigate(['/'])
+            return false
+          }
+      })
+
+      if (route.data['roles'] && route.data['roles'].indexOf(this.currentUserRole) === -1) {
+        console.log('evaluated')
         this.router.navigate(['/'])
         return false
       }
+      console.log('not evaluated')
 
       return true
     }

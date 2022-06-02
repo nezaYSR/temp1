@@ -24,8 +24,7 @@ const routes: Routes = [
         (m) => m.SuperuserModule
       ),
     canActivate: [AuthGuard],
-    data: { roles: '232112356' }
-    // TODO: ubah nik jadi roles sebagai identifier
+    data: { roles: Role.SUPER_USER }
   }
 ];
 

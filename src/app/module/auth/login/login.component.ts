@@ -1,18 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from "@angular/router";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {first} from "rxjs/operators";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
 
-import {AuthenticationService} from "../../../shared/services";
+import { AuthenticationService } from '../../../shared/services';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  loading = false
+  loading = false;
   submitted = false;
   error = '';
 
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService
   ) {
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/'])
+      this.router.navigate(['/']);
     }
   }
 
@@ -31,33 +31,33 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       nik: ['', Validators.required],
       password: ['', Validators.required],
-    })
+    });
   }
 
   get f() {
-    return this.loginForm.controls
+    return this.loginForm.controls;
   }
 
   onSubmit() {
-    this.submitted = true
+    this.submitted = true;
 
     if (this.loginForm.invalid) {
-      return
+      return;
     }
 
-    this.loading = true
+    this.loading = true;
 
-    this.authenticationService.login(this.f['nik'].value, this.f['password'].value)
+    this.authenticationService
+      .login(this.f['nik'].value, this.f['password'].value)
       .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate(['/'])
+      .subscribe({
+        next: (value) => {
+          this.router.navigate(['/']);
         },
-        error => {
-          this.error = error
-          this.loading = false
-        }
-      )
+        error: (err) => {
+          this.error = err.error.message;
+          this.loading = false;
+        },
+      });
   }
-
 }
