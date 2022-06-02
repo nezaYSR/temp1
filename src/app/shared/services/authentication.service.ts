@@ -47,6 +47,7 @@ export class AuthenticationService {
 
   logout() {
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('userRole');
     // @ts-ignore
     this.currentUserSubject.next(null);
   }

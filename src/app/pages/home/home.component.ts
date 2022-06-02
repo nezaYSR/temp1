@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../shared/services';
-import { User } from '../../models';
+import {Role, User} from '../../models';
 import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject<void>();
   currentUser: User;
   loading = false;
+  userRole = localStorage.getItem('userRole')
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -25,22 +26,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.isSuperUser) {
-      console.log("you're superuser");
       this.router.navigate(['/superuser/home']);
-    } else {
-      console.log("you're not powered user");
     }
   }
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
-    console.log('destroyed');
   }
 
   get isSuperUser() {
-    // TODO: ubah nik jadi roles sebagai identifier
-    console.log(this.currentUser.nik);
-    return this.currentUser && this.currentUser.nik.toString() === '232112356';
+    return this.userRole === 'super_user';
   }
 }
