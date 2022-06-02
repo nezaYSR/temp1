@@ -9,23 +9,22 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   private ngUnsubscribe = new Subject<void>();
   currentUser: User;
   loading = false;
-  userRole = localStorage.getItem('userRole')
 
   constructor(
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
   ) {
-    this.authenticationService.currentUser
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((x) => (this.currentUser = x));
   }
 
   ngOnInit(): void {
-    if (this.isSuperUser) {
+    console.log('ngOnInit Home')
+    let userRole = localStorage.getItem('userRole')
+    if (this.isSuperUser(userRole)) {
+      console.log('isSuperUser evaluated');
       this.router.navigate(['/superuser/home']);
     }
   }
@@ -35,7 +34,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.complete();
   }
 
-  get isSuperUser() {
-    return this.userRole === 'super_user';
+  isSuperUser(role: string|null): boolean {
+    console.log(role)
+    console.log(Role.SUPER_USER)
+    console.log('isSuperUser done')
+    return role === Role.SUPER_USER;
   }
 }
