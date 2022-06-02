@@ -11,6 +11,6 @@ export class UserService {
   }
 
   getUserDetail() {
-    return this.http.get(`${environment.apiUrl}/myuserdetail`);
+    return this.http.get<any>(`${environment.apiUrl}/myuserdetail`);
   }
 }

@@ -35,6 +35,7 @@ export class AuthenticationService {
       .pipe(
         map((resp) => {
           if (resp && resp.success === true) {
+            delete resp.ldapAuth.password
             localStorage.setItem('currentUser', JSON.stringify(resp.ldapAuth));
             this.currentUserSubject.next(resp.ldapAuth);
           }
