@@ -60,7 +60,6 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe({
               next: userDetailResp => {
-                console.log(userDetailResp.userERMSrole.ermsRole)
                 this.currentUserRole = userDetailResp.userERMSrole.ermsRole
 
                 switch (this.currentUserRole){

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../shared/services';
-import {Role, User} from '../../models';
-import { Subject, takeUntil } from 'rxjs';
+import { Role } from '../../models';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,25 +10,22 @@ import { Router } from '@angular/router';
 export class RootComponent implements OnInit {
   loading = false;
 
-  constructor(
-    private router: Router,
-  ) {
-  }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-    let userRole = localStorage.getItem('userRole')
+    let userRole = localStorage.getItem('userRole');
     if (this.isSuperUser(userRole)) {
       this.router.navigate(['/superuser/home']);
-    }else if (this.isSuperVisorAdmin(userRole)){
+    } else if (this.isSuperVisorAdmin(userRole)) {
       this.router.navigate(['/supervisor/home']);
     }
   }
 
-  isSuperUser(role: string|null): boolean {
+  isSuperUser(role: string | null): boolean {
     return role === Role.SUPER_USER;
   }
 
-  isSuperVisorAdmin(role: string|null): boolean {
-    return role === Role.SUPERVISOR_ADMIN
+  isSuperVisorAdmin(role: string | null): boolean {
+    return role === Role.SUPERVISOR_ADMIN;
   }
 }
