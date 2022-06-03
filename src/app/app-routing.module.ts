@@ -25,6 +25,15 @@ const routes: Routes = [
       ),
     canActivate: [AuthGuard],
     data: { roles: Role.SUPER_USER }
+  },
+  {
+    path: 'riskadmin',
+    loadChildren: () =>
+      import('../app/module/riskadmin/riskadmin.module').then(
+        (m) => m.RiskadminModule
+      ),
+    canActivate: [AuthGuard],
+    data: { roles: Role.RISK_ADMIN }
   }
 ];
 

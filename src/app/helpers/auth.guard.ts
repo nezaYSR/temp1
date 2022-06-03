@@ -23,15 +23,7 @@ export class AuthGuard implements CanActivate {
 
     if (currentUser) {
       if (route.data['roles'] && route.data['roles'].indexOf(this.currentUserRole) === -1) {
-        switch (this.currentUserRole){
-          case Role.SUPER_USER:
-            this.router.navigate(['superuser/home']);
-            break
-          case Role.SUPERVISOR_ADMIN:
-            this.router.navigate(['supervisor/home']);
-            break
-        }
-
+        this.router.navigate(['/'])
         return false
       }
       return true

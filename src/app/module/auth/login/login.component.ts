@@ -69,6 +69,13 @@ export class LoginComponent implements OnInit {
                   case Role.SUPERVISOR_ADMIN:
                     this.router.navigate(['supervisor/home']);
                     break
+                  case Role.RISK_ADMIN:
+                    this.router.navigate(['riskadmin/home']);
+                    break
+                  default:
+                    this.authenticationService.logout()
+                    this.error = "access not granted yet"
+                    this.loading = false
                 }
               },
               error: userDetailErr => {

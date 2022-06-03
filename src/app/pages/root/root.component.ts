@@ -14,10 +14,18 @@ export class RootComponent implements OnInit {
 
   ngOnInit(): void {
     let userRole = localStorage.getItem('userRole');
+    console.log(userRole)
     if (this.isSuperUser(userRole)) {
+      console.log('1')
       this.router.navigate(['/superuser/home']);
+    } else if (this.isRiskAdmin(userRole)) {
+      console.log('2')
+      this.router.navigate(['/riskadmin/home']);
     } else if (this.isSuperVisorAdmin(userRole)) {
+      console.log('3')
       this.router.navigate(['/supervisor/home']);
+    }else{
+      console.log('else evaluated')
     }
   }
 
@@ -27,5 +35,9 @@ export class RootComponent implements OnInit {
 
   isSuperVisorAdmin(role: string | null): boolean {
     return role === Role.SUPERVISOR_ADMIN;
+  }
+
+  isRiskAdmin(role: string | null): boolean {
+    return role === Role.RISK_ADMIN;
   }
 }
