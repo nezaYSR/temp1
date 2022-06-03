@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService, UserService } from '../../../shared/services';
+import {Role} from "../../../models";
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   error = '';
+  currentUserRole = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -56,9 +58,25 @@ export class LoginComponent implements OnInit {
 
           this.userService.getUserDetail()
             .pipe(first())
-            .subscribe()
+            .subscribe({
+              next: userDetailResp => {
+                console.log(userDetailResp.userERMSrole.ermsRole)
+                this.currentUserRole = userDetailResp.userERMSrole.ermsRole
 
-          this.router.navigate(['/']);
+                switch (this.currentUserRole){
+                  case Role.SUPER_USER:
+                    this.router.navigate(['superuser/home']);
+                    break
+                  case Role.SUPERVISOR_ADMIN:
+                    this.router.navigate(['supervisor/home']);
+                    break
+                }
+              },
+              error: userDetailErr => {
+                console.log(userDetailErr)
+              }
+            })
+
         },
         error: (err) => {
           this.error = err.error.message;

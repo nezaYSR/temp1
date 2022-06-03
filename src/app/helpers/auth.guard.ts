@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AuthenticationService, UserService} from "../shared/services";
+import {Role} from "../models";
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,15 @@ export class AuthGuard implements CanActivate {
 
     if (currentUser) {
       if (route.data['roles'] && route.data['roles'].indexOf(this.currentUserRole) === -1) {
-        this.router.navigate(['/'])
+        switch (this.currentUserRole){
+          case Role.SUPER_USER:
+            this.router.navigate(['superuser/home']);
+            break
+          case Role.SUPERVISOR_ADMIN:
+            this.router.navigate(['supervisor/home']);
+            break
+        }
+
         return false
       }
       return true
