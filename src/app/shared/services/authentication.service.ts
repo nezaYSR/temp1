@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { User } from '../../models';
+import {CookieService} from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,10 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private cookieService: CookieService
+  ) {
     this.currentUserSubject = new BehaviorSubject<User>(
       // @ts-ignore
       JSON.parse(localStorage.getItem('currentUser'))
@@ -48,6 +52,8 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('userRole');
+    // TODO: remove session cookies
+    this.cookieService.deleteAll('/', 'http://localhost')
     // @ts-ignore
     this.currentUserSubject.next(null);
   }

@@ -9,6 +9,7 @@ import {AppComponent} from './app.component';
 import {AuthModule} from "./module/auth/auth.module";
 import { RootComponent } from './pages/root/root.component';
 import {WithCredentialsInterceptor} from "./helpers/with-credentials-interceptor";
+import {CookieService} from "ngx-cookie-service";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import {WithCredentialsInterceptor} from "./helpers/with-credentials-interceptor
     AppRoutingModule,
     AuthModule
   ],
-  providers: [{
+  providers: [
+    CookieService,
+    {
     provide: HTTP_INTERCEPTORS,
     useClass: WithCredentialsInterceptor,
     multi: true

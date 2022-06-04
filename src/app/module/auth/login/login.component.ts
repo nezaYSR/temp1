@@ -75,17 +75,26 @@ export class LoginComponent implements OnInit {
                   default:
                     this.authenticationService.logout()
                     this.error = "access not granted yet"
-                    this.loading = false
                 }
               },
               error: userDetailErr => {
-                console.log(userDetailErr)
+                this.error = userDetailErr.error
+              },
+              complete: () => {
+                this.loading = false
               }
             })
 
         },
         error: (err) => {
-          this.error = err.error.message;
+          if (err.error instanceof ErrorEvent) {
+            // Client-side errors
+            this.error = `Error: ${err.error.message}`;
+          } else {
+            // Server-side errors
+            this.error = `Error Code: ${err.status}\nMessage: ${err.message}`;
+          }
+
           this.loading = false;
         },
       });
