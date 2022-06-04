@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Role } from '../../models';
 import { Router } from '@angular/router';
+import {UserService} from "../../shared/services";
 
 @Component({
   selector: 'app-home',
@@ -10,22 +11,21 @@ import { Router } from '@angular/router';
 export class RootComponent implements OnInit {
   loading = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
-    let userRole = localStorage.getItem('userRole');
-    console.log(userRole)
+    let userRole = this.userService.userRoleValue
     if (this.isSuperUser(userRole)) {
-      console.log('1')
       this.router.navigate(['/superuser/home']);
     } else if (this.isRiskAdmin(userRole)) {
-      console.log('2')
       this.router.navigate(['/riskadmin/home']);
     } else if (this.isSuperVisorAdmin(userRole)) {
-      console.log('3')
       this.router.navigate(['/supervisor/home']);
     }else{
-      console.log('else evaluated')
+      console.log('unassigned roles')
     }
   }
 

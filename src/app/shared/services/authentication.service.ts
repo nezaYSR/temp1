@@ -56,5 +56,6 @@ export class AuthenticationService {
     this.cookieService.deleteAll('/', 'http://localhost')
     // @ts-ignore
     this.currentUserSubject.next(null);
+    localStorage.clear()
   }
 }
