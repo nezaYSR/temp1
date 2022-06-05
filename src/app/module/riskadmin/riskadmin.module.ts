@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { RiskadminRoutingModule } from './riskadmin-routing.module';
 import { HomeComponent } from './home/home.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    SidebarComponent
   ],
   imports: [
     CommonModule,
