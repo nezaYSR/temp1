@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
-import {AuthenticationService} from "../../../shared/services";
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-home',

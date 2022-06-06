@@ -9,7 +9,7 @@
               {{ data.title }}
             </ng-container>
             <ng-template #lastBreadcrumbItem>
-              <a href="{{data.fullPath}}">{{ data.title }}</a>
+              <a href="javascript:void(0)" routerLink="{{data.fullPath}}">{{ data.title }}</a>
             </ng-template>
           </li>
         </ol>

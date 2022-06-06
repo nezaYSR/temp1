@@ -7,6 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErmsAdminComponent implements OnInit {
 
+  breadcrumbs: {
+    title: string
+    fullPath: string
+  }[] = [
+    {
+      title: "Home",
+      fullPath: "/superuser/home"
+    },
+    {
+      title: "ERMS Admin",
+      fullPath: "/superuser/ErmsAdmin"
+    }
+  ]
+
   constructor() { }
 
   ngOnInit(): void {
