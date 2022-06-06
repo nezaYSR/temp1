@@ -26,10 +26,10 @@ import {CookieService} from "ngx-cookie-service";
   providers: [
     CookieService,
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: WithCredentialsInterceptor,
-    multi: true
-  }],
+      provide: HTTP_INTERCEPTORS,
+      useClass: WithCredentialsInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
