@@ -6,6 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  breadcrumbs: {
+    title: string
+    fullPath: string
+  }[] = [
+    {
+      title: "Home",
+      fullPath: "/superuser/home"
+    }
+  ]
 
   constructor() { }
 
