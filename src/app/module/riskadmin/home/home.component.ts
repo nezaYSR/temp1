@@ -9,16 +9,19 @@ import {AuthenticationService} from "../../../shared/services";
 })
 export class HomeComponent implements OnInit {
 
-  constructor(
-    private router: Router,
-    private authenticationService: AuthenticationService
-  ) { }
+  breadcrumbs: {
+    title: string
+    fullPath: string
+  }[] = [
+    {
+      title: "Home",
+      fullPath: "/riskadmin/home"
+    }
+  ]
+
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-  logout() {
-    this.authenticationService.logout();
-    this.router.navigate(['/auth/login'])
-  }
 }
