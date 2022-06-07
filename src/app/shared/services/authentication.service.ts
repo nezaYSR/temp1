@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { User } from '../../models';
 import {CookieService} from "ngx-cookie-service";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,7 @@ export class AuthenticationService {
   public currentUser: Observable<User>;
 
   constructor(
+    private router: Router,
     private http: HttpClient,
     private cookieService: CookieService
   ) {
@@ -57,5 +59,10 @@ export class AuthenticationService {
     // @ts-ignore
     this.currentUserSubject.next(null);
     localStorage.clear()
+  }
+
+  doLogoutAndRedirectToLogin() {
+    this.logout();
+    this.router.navigate(['/auth/login'])
   }
 }

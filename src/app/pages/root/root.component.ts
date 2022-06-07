@@ -26,8 +26,7 @@ export class RootComponent implements OnInit {
     } else if (this.isSuperVisorAdmin(userRole)) {
       this.router.navigate(['/supervisor/home']);
     }else{
-      this.authenticationService.logout()
-      this.router.navigate(['/auth/login'])
+      this.authenticationService.doLogoutAndRedirectToLogin()
     }
   }
 
