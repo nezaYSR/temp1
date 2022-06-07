@@ -3,14 +3,48 @@
 
   <!-- Title -->
   <ng-container title>
-    ERMS Admin
+    Admin Candidates
   </ng-container>
 
   <!-- Content -->
   <ng-container content>
     <div class="row">
-      <div class="col text-center">
-        Column Width Text
+      <div class="col">
+        Cari User berdasarkan NIK atau Nama User
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="mt-2">
+          <input type="text" class="form-control" placeholder="NIK / Nama User">
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-12">
+        <div class="card">
+
+          <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap">
+              <thead>
+              <tr>
+                <th>NIK</th>
+                <th>Full Name</th>
+                <th>Jabatan</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let user of userList">
+                <td>{{ user['nik'] }}</td>
+                <td>{{ user['fullname'] }}</td>
+                <td>{{ user['position'] }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
       </div>
     </div>
   </ng-container>
