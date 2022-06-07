@@ -3,11 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from "./components/footer/footer.component";
 import { ContentComponent } from './components/content/content.component';
 import { RouterModule } from "@angular/router";
+import { ForRolesDirective } from './directives/for-roles.directive';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     FooterComponent,
-    ContentComponent
+    ContentComponent,
+    ForRolesDirective,
+    SidebarComponent
   ],
   imports: [
     CommonModule,
@@ -15,7 +19,8 @@ import { RouterModule } from "@angular/router";
   ],
   exports: [
     FooterComponent,
-    ContentComponent
+    ContentComponent,
+    ForRolesDirective
   ]
 })
 export class SharedModule { }
