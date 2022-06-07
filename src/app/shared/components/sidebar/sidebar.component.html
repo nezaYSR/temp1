@@ -15,72 +15,43 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
 
-        <!-- ////////////////////////// -->
-        <!-- Super User Sidebar - Start -->
-        <!-- \\\\\\\\\\\\\\\\\\\\\\\\\\ -->
-        <li class="nav-item">
-          <a href="javascript:void(0)" routerLink="/superuser/ErmsAdmin" routerLinkActive="active" class="nav-link">
-            <i class="nav-icon fas fa-th"></i>
-            <p>
-              ERMS Admin
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="javascript:void(0)" class="nav-link">
-            <i class="nav-icon fas fa-user-shield"></i>
-            <p>
-              Risk Admin Task
-              <i class="fas fa-angle-left right"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="javascript:void(0)" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Task</p>
+        <ng-container *ngFor="let menu of sidebarData">
+          <ng-container *ngIf="menu.child.length < 1">
+            <li class="nav-item" *forRoles="menu.roles">
+              <a href="javascript:void(0)" class="nav-link" routerLink="{{ menu.fullPath }}" routerLinkActive="active">
+                <i class="nav-icon {{ menu.icon }}"></i>
+                <p>
+                  {{ menu.title }}
+                </p>
               </a>
             </li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a href="javascript:void(0)" class="nav-link">
-            <i class="nav-icon fas fa-user-cog"></i>
-            <p>
-              User Admin Task
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
+          </ng-container>
+
+          <ng-container *ngIf="menu.child.length > 0">
+            <li class="nav-item" *forRoles="menu.roles">
               <a href="javascript:void(0)" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>A</p>
+                <i class="nav-icon {{ menu.icon }}"></i>
+                <p>
+                  {{ menu.title }}
+                  <i class="fas fa-angle-left right"></i>
+                </p>
               </a>
+              <ul class="nav nav-treeview">
+
+                <ng-container *ngFor="let submenu of menu.child">
+                  <li class="nav-item">
+                    <a href="javascript:void(0)" class="nav-link" routerLink="{{ menu.fullPath }}" routerLinkActive="active">
+                      <i class="nav-icon {{ submenu.icon }}"></i>
+                      <p>{{ submenu.title }}</p>
+                    </a>
+                  </li>
+                </ng-container>
+
+              </ul>
             </li>
-            <li class="nav-item">
-              <a href="javascript:void(0)" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>B</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="javascript:void(0)" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>C</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="javascript:void(0)" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>D</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!-- ////////////////////////// -->
-        <!-- Super User Sidebar - End -->
-        <!-- \\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+          </ng-container>
+
+        </ng-container>
 
         <li class="nav-item">
           <a href="javascript:void(0)" class="nav-link text-danger" (click)="logout()">
