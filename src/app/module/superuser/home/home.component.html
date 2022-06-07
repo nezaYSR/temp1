@@ -12,22 +12,31 @@
 
   <!-- Content -->
   <ng-container content>
-    <div class="row">
-      <div class="col">
-        {{ listNotification.length }} New notification
-      </div>
-    </div>
-    <ng-template *ngIf="listNotification.length > 0" class="row mt-4">
+    <span *ngIf="loading; else contentBody" class="spinner-border spinner-border-sm mr-1"></span>
+    <ng-template #contentBody>
 
-      <div class="col-md-3">
-        <div class="card shadow">
-          <div class="card-body">
-            {{ listNotification | json }}
+      <div *ngIf="error; else contentSuccess" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+
+      <ng-template class="row" #contentSuccess>
+        <div class="col">
+          {{ listNotification.length }} New notification
+        </div>
+      </ng-template>
+
+      <ng-template *ngIf="listNotification.length > 0" class="row mt-4">
+
+        <div class="col-md-3">
+          <div class="card shadow">
+            <div class="card-body">
+              {{ listNotification | json }}
+            </div>
           </div>
         </div>
-      </div>
+
+      </ng-template>
 
     </ng-template>
+
   </ng-container>
 
 </app-content>

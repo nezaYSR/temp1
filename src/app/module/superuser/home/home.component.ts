@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {User} from "../../../models";
 import {AuthenticationService} from "../../../shared/services";
 import {NotificationService} from "../../../shared/services/notification.service";
-import {first} from "rxjs/operators";
+import {finalize, first} from "rxjs/operators";
 
 @Component({
   selector: 'app-home',
@@ -35,15 +35,15 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.notificationService.getNotification()
       .pipe(first())
+      .pipe(finalize(() => {
+        this.loading = false
+      }))
       .subscribe({
         next: resp => {
           this.listNotification = resp
         },
         error: err => {
-          this.error = err.error
-        },
-        complete: () => {
-          this.loading = false
+          this.error = err.message
         }
       })
   }
