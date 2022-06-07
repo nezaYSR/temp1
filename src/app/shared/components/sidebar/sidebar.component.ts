@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenticationService} from "../../services";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private authenticationService: AuthenticationService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  logout() {
+    this.authenticationService.doLogoutAndRedirectToLogin()
   }
 
 }
