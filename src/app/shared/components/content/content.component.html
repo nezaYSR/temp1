@@ -25,9 +25,9 @@
 
     <div class="content-header">
       <div class="container-fluid">
-        <div class="row mb-2">
+        <div class="row">
           <div class="col">
-            <h1 class="m-0">
+            <h1 class="mt-5 mx-5">
               <!-- Title -->
               <ng-content select="[title]"></ng-content>
             </h1>
@@ -39,8 +39,10 @@
 
     <section class="content">
       <div class="container-fluid">
-        <!-- Content -->
-        <ng-content select="[content]"></ng-content>
+        <div class="mx-5">
+          <!-- Content -->
+          <ng-content select="[content]"></ng-content>
+        </div>
       </div>
     </section>
 

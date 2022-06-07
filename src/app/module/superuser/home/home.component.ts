@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {User} from "../../../models";
+import {AuthenticationService} from "../../../shared/services";
+import {NotificationService} from "../../../shared/services/notification.service";
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-home',
@@ -6,6 +10,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  currentUser: User;
+  loading = true
+  error = ''
+  listNotification = []
 
   breadcrumbs: {
     title: string
@@ -17,9 +25,27 @@ export class HomeComponent implements OnInit {
     }
   ]
 
-  constructor() { }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private notificationService: NotificationService
+  ) {
+    this.currentUser = authenticationService.currentUserValue
+  }
 
   ngOnInit(): void {
+    this.notificationService.getNotification()
+      .pipe(first())
+      .subscribe({
+        next: resp => {
+          this.listNotification = resp
+        },
+        error: err => {
+          this.error = err.error
+        },
+        complete: () => {
+          this.loading = false
+        }
+      })
   }
 
 }

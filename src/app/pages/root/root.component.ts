@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Role } from '../../models';
 import { Router } from '@angular/router';
-import {UserService} from "../../shared/services";
+import {AuthenticationService, UserService} from "../../shared/services";
 
 @Component({
   selector: 'app-home',
@@ -13,6 +13,7 @@ export class RootComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private authenticationService: AuthenticationService,
     private userService: UserService
   ) {}
 
@@ -25,7 +26,8 @@ export class RootComponent implements OnInit {
     } else if (this.isSuperVisorAdmin(userRole)) {
       this.router.navigate(['/supervisor/home']);
     }else{
-      console.log('unassigned roles')
+      this.authenticationService.logout()
+      this.router.navigate(['/auth/login'])
     }
   }
 

@@ -7,34 +7,27 @@
 
   <!-- Title -->
   <ng-container title>
-    Dashboard
+    Welcome {{ currentUser.fullname }}
   </ng-container>
 
   <!-- Content -->
   <ng-container content>
     <div class="row">
       <div class="col">
-        Left
-      </div>
-      <div class="col">
-        <div class="row">
-          <div class="col">
-            Right Left
-          </div>
-          <div class="col">
-            Right Right
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            Right Left
-          </div>
-          <div class="col">
-            Right Right
-          </div>
-        </div>
+        {{ listNotification.length }} New notification
       </div>
     </div>
+    <ng-template *ngIf="listNotification.length > 0" class="row mt-4">
+
+      <div class="col-md-3">
+        <div class="card shadow">
+          <div class="card-body">
+            {{ listNotification | json }}
+          </div>
+        </div>
+      </div>
+
+    </ng-template>
   </ng-container>
 
 </app-content>
