@@ -5,6 +5,7 @@ import {SuperuserRoutingModule} from "./superuser.routing.module";
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ErmsAdminComponent } from './erms-admin/erms-admin.component';
 import {SharedModule} from "../../shared/shared.module";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -12,10 +13,11 @@ import {SharedModule} from "../../shared/shared.module";
     SidebarComponent,
     ErmsAdminComponent
   ],
-  imports: [
-    SharedModule,
-    CommonModule,
-    SuperuserRoutingModule
-  ]
+    imports: [
+        SharedModule,
+        CommonModule,
+        SuperuserRoutingModule,
+        FormsModule
+    ]
 })
 export class SuperuserModule { }

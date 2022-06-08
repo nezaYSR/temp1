@@ -17,6 +17,8 @@ export class ErmsAdminComponent extends OnDestroyMixin implements OnInit {
     distinctUntilChanged()
   );
   userList = []
+  clickedUserData: any
+  selectedRoleOption = ''
 
   breadcrumbs: {
     title: string
@@ -89,8 +91,34 @@ export class ErmsAdminComponent extends OnDestroyMixin implements OnInit {
     return (event.target as HTMLInputElement).value;
   }
 
-  searchUser(searchTerm: string) {
+  doSearchUser(searchTerm: string) {
     this.searchTermSubject.next(searchTerm);
+  }
+
+  tableRowListener(userData: any) {
+    this.clickedUserData = userData
+    this.selectedRoleOption = userData['nik']
+  }
+
+  ermsRoleSelectListener(){
+    console.log(this.selectedRoleOption)
+  }
+
+  doAssignErmsRole() {
+    this.http.patch(`${environment.apiUrl}/superuser/assignsupervisoradmin`, {
+      "_userId": this.clickedUserData['_id'],
+      "ermsRole": this.selectedRoleOption
+    })
+      .pipe(first())
+      .subscribe({
+        next: value => {
+          // TODO: handle sukses & error
+          console.log(value)
+        },
+        error: err => {
+          console.log(err)
+        }
+      })
   }
 
 }

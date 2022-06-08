@@ -16,7 +16,7 @@
     <div class="row">
       <div class="col-lg-3 col-md-4 col-sm-6">
         <div class="mt-2">
-          <input type="text" class="form-control" (keyup)="searchUser(getInputValue($event))" placeholder="NIK / Nama User">
+          <input type="text" class="form-control" (keyup)="doSearchUser(getInputValue($event))" placeholder="NIK / Nama User">
         </div>
       </div>
     </div>
@@ -34,19 +34,94 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let user of userList">
+              <tr *ngFor="let user of userList; let i = index" data-toggle="modal" data-target="#modal-lg" (click)="tableRowListener(userList[i])">
                 <td>{{ user['nik'] }}</td>
                 <td>{{ user['fullname'] }}</td>
                 <td>{{ user['position'] }}</td>
               </tr>
               </tbody>
             </table>
+
           </div>
 
         </div>
 
       </div>
     </div>
+
+    <div *ngIf="clickedUserData" class="modal fade" id="modal-lg">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h4>User Detail</h4>
+            <h4>{{ clickedUserData['nik'] }} - {{ clickedUserData['fullname'] }}</h4>
+            <div class="row pl-4 mt-2">
+              <div class="col-2">
+                NIK
+              </div>
+              <div class="col">
+                : {{ clickedUserData['nik'] }}
+              </div>
+            </div>
+            <div class="row pl-4">
+              <div class="col-2">
+                Fullname
+              </div>
+              <div class="col">
+                : {{ clickedUserData['fullname'] }}
+              </div>
+            </div>
+            <div class="row pl-4">
+              <div class="col-2">
+                Jabatan
+              </div>
+              <div class="col">
+                : {{ clickedUserData['position'] }}
+              </div>
+            </div>
+            <div class="row pl-4">
+              <div class="col-2">
+                Cabang / HO
+              </div>
+              <div class="col">
+                : {{ clickedUserData['userAddress'] }}
+              </div>
+            </div>
+            <div class="row pl-4 mt-4 form-group">
+              <div class="col-2">
+                <label>
+                  ERMS Role
+                </label>
+              </div>
+              <div class="col-8">
+                <select class="form-control" [(ngModel)]="selectedRoleOption" (change)="ermsRoleSelectListener()">
+                  <option value="123">123</option>
+                  <option value="1234">1234</option>
+                  <option value="12345">12345</option>
+                  <option value="unassigned">Unassigned</option>
+                  <option value="user">User</option>
+                  <option value="user_all">User All</option>
+                  <option value="risk_admin">Risk Admin</option>
+                  <option value="supervisor_risk_admin">Risk Admin Supervisor</option>
+                  <option value="user_admin">User Admin</option>
+                  <option value="supervisor_user_admin">User Admin Supervisor</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-primary" (click)="doAssignErmsRole()">SIMPAN PERUBAHAN</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">HAPUS PERUBAHAN</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </ng-container>
 
 </app-content>
